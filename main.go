@@ -13,7 +13,8 @@ import (
 )
 
 func main() {
-	port := viperConfigFile("PORT")
+		loadEnv();
+	port := viper.GetString("PORT")
 
 	// Initialize router
 	r := mux.NewRouter()
@@ -47,14 +48,20 @@ func main() {
 	}
 }
 
-func viperConfigFile(key string) string {
-	viper.SetConfigFile(".env")
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Error reading config file: %v", err)
-	}
-	value, ok := viper.Get(key).(string)
-	if !ok {
-		log.Fatalf("Invalid type assertion for key: %s", key)
-	}
-	return value
+// func viperConfigFile(key string) string {
+// 	viper.SetConfigFile(".env")
+// 	if err := viper.ReadInConfig(); err != nil {
+// 		log.Fatalf("Error reading config file: %v", err)
+// 	}
+// 	value, ok := viper.Get(key).(string)
+// 	if !ok {
+// 		log.Fatalf("Invalid type assertion for key: %s", key)
+// 	}
+// 	return value
+// }
+
+func loadEnv() {
+	viper.SetConfigFile(".env") // Try to read from .env file
+	_ = viper.ReadInConfig()    // Ignore error if .env not found (Render won't have it)
+	viper.AutomaticEnv()        // Read from OS env (Render injects these)
 }

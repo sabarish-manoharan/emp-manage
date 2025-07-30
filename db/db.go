@@ -13,6 +13,8 @@
 	var DB *gorm.DB // setting db globally
 
 	func ConnectDB() {
+		
+	viper.AutomaticEnv() ;
 		db_url := getDBurl()
 
 		db, err := gorm.Open(postgres.Open(db_url), &gorm.Config{}) // open up the db
