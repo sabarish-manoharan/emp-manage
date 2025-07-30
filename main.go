@@ -35,7 +35,7 @@ func main() {
 
 	// Set up CORS
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"https://snow-emp.netlify.app/"}, // Frontend URL
+		AllowedOrigins:   []string{"https://snow-emp.netlify.app"}, // Frontend URL
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type", "Authorization"},
 		AllowCredentials: true,
